@@ -1,8 +1,12 @@
 package auth;
 
 import database.Database;
+import user.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class AuthService {
     private final Database db = Database.getInstance();
@@ -26,6 +30,11 @@ public class AuthService {
         return false;
     }
     public void register(String username, String password) {
-        db.getHashMap().put(username, password);
+        User newUser = new User(username, password);
+
+        List<User> users = new ArrayList<>((List<User>) db.getHashMap().get("users"));
+
+        users.add(newUser);
+        db.getHashMap().put("users", users);
     }
 }
