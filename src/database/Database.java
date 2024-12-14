@@ -32,10 +32,7 @@ public class Database {
     public void save() throws IOException {
         this.setToJson();
     }
-    public void post(String key, Object value) {
-        database.put(key, value);
-    }
-    public String getAll() {
-        return database.toString();
+    public HashMap getHashMap() {
+        return database;
     }
 }

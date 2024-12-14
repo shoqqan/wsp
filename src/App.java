@@ -1,13 +1,13 @@
+import auth.Auth;
 import database.Database;
 
 import java.io.IOException;
 
 public class App {
     public static void main(String[] args) throws IOException {
-        System.out.println("Hello and welcome!");
+        System.out.println("Добро пожаловать в WSP!");
         Database db = Database.getInstance();
         db.init();
-
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 db.save();
@@ -15,5 +15,8 @@ public class App {
                 e.printStackTrace();
             }
         }));
+        Auth auth = new Auth();
+        auth.view();
+
     }
 }
