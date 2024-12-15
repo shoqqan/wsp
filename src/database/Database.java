@@ -2,10 +2,13 @@ package database;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
+import user.User;
 
 public class Database {
     private static Database instance;
@@ -14,7 +17,7 @@ public class Database {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     private Database() {
-        // private constructor to prevent instantiation
+
     }
 
     public static synchronized Database getInstance() {
@@ -29,22 +32,25 @@ public class Database {
     }
 
     private void getFromJson() throws IOException {
-        if (file.length() == 0) {
-            System.out.println("Файл data.json пустй");
+        if (!file.exists() || file.length() == 0) {
             database = new HashMap<>();
+            database.put("users", new ArrayList<User>());
             return;
         }
+
         database = objectMapper.readValue(file, new TypeReference<HashMap<String, Object>>() {
         });
+
+        if (database.containsKey("users")) {
+            List<User> users = objectMapper.convertValue(
+                    database.get("users"),
+                    new TypeReference<List<User>>() {
+                    });
+            database.put("users", users);
+        }
     }
 
     public void init() throws IOException {
-        if (!file.exists()) {
-            System.out.println("Файла data.json нет, создан новый data.json");
-            file.createNewFile();
-            database = new HashMap<>();
-            return;
-        }
         this.getFromJson();
     }
 

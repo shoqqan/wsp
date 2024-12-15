@@ -17,6 +17,5 @@ public class App {
         }));
         Auth auth = new Auth();
         auth.view();
-
     }
 }
