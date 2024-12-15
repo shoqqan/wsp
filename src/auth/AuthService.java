@@ -4,8 +4,6 @@ import database.Database;
 import user.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class AuthService {
@@ -13,8 +11,9 @@ public class AuthService {
     private static AuthService instance;
 
     private AuthService() {
-        // private constructor to prevent instantiation
+
     }
+
     public static synchronized AuthService getInstance() {
         if (instance == null) {
             instance = new AuthService();
@@ -23,16 +22,26 @@ public class AuthService {
     }
 
     public boolean login(String username, String password) {
-        if (Arrays.asList(db.getHashMap().get("users")).contains(username)) {
-            return db.getHashMap().get(username).equals(password);
+        List<User> users = (List<User>) db.getHashMap().get("users");
+        if (users == null) {
+            return false;
         }
-        System.out.println(db.getHashMap().toString());
+
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                return true;
+            }
+        }
         return false;
     }
+
     public void register(String username, String password) {
         User newUser = new User(username, password);
 
-        List<User> users = new ArrayList<>((List<User>) db.getHashMap().get("users"));
+        List<User> users = (List<User>) db.getHashMap().get("users");
+        if (users == null) {
+            users = new ArrayList<>();
+        }
 
         users.add(newUser);
         db.getHashMap().put("users", users);
