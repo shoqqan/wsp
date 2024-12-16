@@ -1,18 +1,15 @@
 package auth;
 
 import database.Database;
-import user.User;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AuthService {
     private final Database db = Database.getInstance();
     private static AuthService instance;
 
-    private AuthService() {
-
-    }
+    private AuthService() {}
 
     public static synchronized AuthService getInstance() {
         if (instance == null) {
@@ -22,13 +19,17 @@ public class AuthService {
     }
 
     public boolean login(String username, String password) {
-        List<User> users = (List<User>) db.getHashMap().get("users");
+        List<Map<String, Object>> users = (List<Map<String, Object>>) db.getHashMap().get("users");
+
         if (users == null) {
             return false;
         }
 
-        for (User user : users) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+        for (Map<String, Object> userMap : users) {
+            String storedUsername = (String) userMap.get("username");
+            String storedPassword = (String) userMap.get("password");
+
+            if (storedUsername.equals(username) && storedPassword.equals(password)) {
                 return true;
             }
         }
@@ -36,12 +37,15 @@ public class AuthService {
     }
 
     public void register(String username, String password) {
-        User newUser = new User(username, password);
+        List<Map<String, Object>> users = (List<Map<String, Object>>) db.getHashMap().get("users");
 
-        List<User> users = (List<User>) db.getHashMap().get("users");
         if (users == null) {
             users = new ArrayList<>();
         }
+
+        Map<String, Object> newUser = new java.util.LinkedHashMap<>();
+        newUser.put("username", username);
+        newUser.put("password", password);
 
         users.add(newUser);
         db.getHashMap().put("users", users);
