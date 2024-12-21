@@ -1,9 +1,8 @@
-package teacher;
+package model.users;
 
-import user.User;
-import user.UserRole;
+import model.enums.UserRole;
 
-public class Teacher extends User {
+public class Teacher extends Employee {
     public Teacher(String username, String password) {
         super(username, password);
         this.role = UserRole.TEACHER;
