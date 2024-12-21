@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:latest
@@ -11,8 +9,8 @@ services:
       POSTGRES_PASSWORD: pass123
       POSTGRES_DB: wsp
     volumes:
-      - postgres_data:/var/lib/postgresql/data   # Для сохранения данных
-      - ./migrations:/docker-entrypoint-initdb.d # Для миграционных файлов
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
 
 volumes:
   postgres_data:

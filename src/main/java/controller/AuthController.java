@@ -12,18 +12,18 @@ public class AuthController {
         this.authView = authView;
     }
 
-    public void handleMenu() {
+    public boolean handleMenu() {
         authView.showMenu();
         String choice = authView.getInput("Выберите действие");
         switch (choice) {
             case "1":
                 handleRegister();
-                break;
+                return false;
             case "2":
-                handleLogin();
-                break;
+                return handleLogin();
             default:
                 authView.showError("Неверный выбор!");
+                return false;
         }
     }
 
@@ -38,14 +38,16 @@ public class AuthController {
         }
     }
 
-    private void handleLogin() {
+    private boolean handleLogin() {
         String username = authView.getInput("Введите имя пользователя");
         String password = authView.getInput("Введите пароль");
         try {
             authService.login(username, password);
             authView.showSuccess("Вход выполнен успешно.");
+            return true;
         } catch (Exception e) {
             authView.showError(e.getMessage());
+            return false;
         }
     }
 }
