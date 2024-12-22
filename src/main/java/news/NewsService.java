@@ -1,7 +1,4 @@
-package service;
-
-import model.News;
-import repository.NewsRepository;
+package news;
 
 import java.util.List;
 

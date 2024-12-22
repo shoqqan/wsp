@@ -1,10 +1,10 @@
 package model.users;
 
-import model.enums.UserRole;
+import user.Role;
 
 public class Teacher extends Employee {
     public Teacher(String username, String password) {
         super(username, password);
-        this.role = UserRole.TEACHER;
+        this.role = Role.TEACHER;
     }
 }

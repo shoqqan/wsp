@@ -1,4 +1,4 @@
-package model;
+package news;
 
 import java.time.LocalDateTime;
 

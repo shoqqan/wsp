@@ -1,6 +1,4 @@
-package view;
-
-import model.News;
+package news;
 
 import java.util.List;
 import java.util.Scanner;

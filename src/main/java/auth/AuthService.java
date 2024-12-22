@@ -1,7 +1,7 @@
-package service;
+package auth;
 
-import model.users.User;
-import repository.UserRepository;
+import user.User;
+import user.UserRepository;
 
 public class AuthService {
     private final UserRepository userRepository;

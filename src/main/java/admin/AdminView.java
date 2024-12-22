@@ -1,7 +1,6 @@
-package view;
+package admin;
 
-import controller.AdminController;
-import model.users.User;
+import user.User;
 
 import java.util.Scanner;
 

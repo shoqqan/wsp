@@ -1,7 +1,4 @@
-package controller;
-
-import service.AuthService;
-import view.AuthView;
+package auth;
 
 public class AuthController {
     private final AuthService authService;

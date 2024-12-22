@@ -1,6 +1,4 @@
-package model.users;
-
-import model.enums.UserRole;
+package user;
 
 import java.util.Scanner;
 
@@ -9,7 +7,7 @@ public class User {
     private String username;
     private String password;
     private String email;
-    public UserRole role;
+    protected Role role;
 
     public User(String username, String password) {
         this.username = username;
@@ -49,11 +47,11 @@ public class User {
         this.password = password;
     }
 
-    public UserRole getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

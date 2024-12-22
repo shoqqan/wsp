@@ -1,9 +1,10 @@
-package controller;
+package admin;
 
-import model.users.User;
-import service.AdminService;
+
+import auth.AuthView;
+import user.User;
+
 import java.util.List;
-import view.AuthView;
 
 public class AdminController {
     private final AdminService adminService;

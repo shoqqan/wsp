@@ -16,16 +16,16 @@
 //}
 
 import database.Database;
-import controller.AuthController;
+import auth.AuthController;
 //import controller.MainMenuController;
-import controller.NewsController;
-import repository.UserRepository;
-import repository.NewsRepository;
-import service.AuthService;
-import service.NewsService;
-import view.AuthView;
+import news.NewsController;
+import user.UserRepository;
+import news.NewsRepository;
+import auth.AuthService;
+import news.NewsService;
+import auth.AuthView;
 //import view.MainMenuView;
-import view.NewsView;
+import news.NewsView;
 
 import java.sql.Connection;
 

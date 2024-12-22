@@ -1,7 +1,4 @@
-package repository;
-
-import model.enums.UserRole;
-import model.users.User;
+package user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +28,7 @@ public class UserRepository {
                         resultSet.getString("password"));
                 user.setId(resultSet.getString("id"));
                 user.setEmail(resultSet.getString("email"));
-                user.setRole(UserRole.valueOf(resultSet.getString("role")));
+                user.setRole(Role.valueOf(resultSet.getString("role")));
                 return Optional.of(user);
             }
         } catch (SQLException e) {
@@ -67,7 +64,7 @@ public class UserRepository {
                 User user = new User(rs.getString("username"), rs.getString("password"));
                 user.setId(rs.getString("id"));
                 user.setEmail(rs.getString("email"));
-                user.setRole(UserRole.valueOf(rs.getString("role")));
+                user.setRole(Role.valueOf(rs.getString("role")));
                 return user;
             }
         }
@@ -85,7 +82,7 @@ public class UserRepository {
                         resultSet.getString("password"));
                 user.setId(resultSet.getString("id"));
                 user.setEmail(resultSet.getString("email"));
-                user.setRole(UserRole.valueOf(resultSet.getString("role")));
+                user.setRole(Role.valueOf(resultSet.getString("role")));
                 users.add(user);
             }
         } catch (SQLException e) {

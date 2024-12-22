@@ -15,12 +15,12 @@ VALUES
         'STUDENT'
     );
 
-INSERT INTO
-    courses (title, credits)
-VALUES
-    ('Introduction to Programming', 3),
-    ('Data Structures', 4),
-    ('Database Systems', 4);
+INSERT INTO courses (id, title, period, year, credits)
+VALUES ('CS101', 'Introduction to Computer Science', 'fall', 2023, 3),
+       ('MATH201', 'Calculus I', 'spring', 2023, 4),
+       ('PHYS101', 'Physics I', 'fall', 2023, 4),
+       ('ENG101', 'English Composition', 'spring', 2023, 3),
+       ('HIST101', 'World History', 'fall', 2023, 3);
 
 INSERT INTO
     news (title, content, is_pinned, author_id)

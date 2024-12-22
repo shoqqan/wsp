@@ -1,6 +1,6 @@
 package model.enums;
 
-public enum StudentType {
+public enum Degree {
     BACHELOR,
     MASTER,
     PHD,

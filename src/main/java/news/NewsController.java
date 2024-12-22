@@ -1,8 +1,4 @@
-package controller;
-
-import model.News;
-import service.NewsService;
-import view.NewsView;
+package news;
 
 import java.util.List;
 

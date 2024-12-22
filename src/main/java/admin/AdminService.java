@@ -1,7 +1,7 @@
-package service;
+package admin;
 
-import model.users.User;
-import repository.UserRepository;
+import user.User;
+import user.UserRepository;
 
 import java.util.List;
 
