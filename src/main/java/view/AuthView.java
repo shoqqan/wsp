@@ -55,9 +55,7 @@ public class AuthView {
     private final Scanner scanner = new Scanner(System.in);
 
     public void showMenu() {
-        System.out.println("Добро пожаловать! Выберите действие:");
-        System.out.println("1. Зарегистрироваться");
-        System.out.println("2. Войти");
+        System.out.println("Добро пожаловать! Введите данные для входа в аккаунт:\n");
     }
 
     public String getInput(String prompt) {

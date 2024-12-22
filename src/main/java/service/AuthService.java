@@ -10,13 +10,6 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public void register(String username, String password) throws Exception {
-        if (userRepository.findByUsername(username) != null) {
-            throw new Exception("Пользователь с таким именем уже существует.");
-        }
-        userRepository.save(new User(username, password));
-    }
-
     public User login(String username, String password) throws Exception {
         User user = userRepository.findByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {

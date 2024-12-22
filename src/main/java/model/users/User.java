@@ -5,23 +5,23 @@ import model.enums.UserRole;
 import java.util.Scanner;
 
 public class User {
-    private int id;
+    private String id;
     private String username;
     private String password;
     private String email;
-    protected UserRole role;
+    public UserRole role;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role=UserRole.STUDENT;
+        // this.role = UserRole.STUDENT;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -33,6 +33,14 @@ public class User {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -41,7 +49,16 @@ public class User {
         this.password = password;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
     private final Scanner scanner = new Scanner(System.in);
+
     public void changePassword() {
         System.out.println("Введите ваш старый пароль: ");
         String oldPassword = scanner.nextLine();
