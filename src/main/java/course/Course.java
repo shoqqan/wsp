@@ -26,6 +26,15 @@ public class Course {
         this.teacherId = teacherId;
     }
 
+    public Course(String courseTitle, int credits, double grade, double gpa, String id, String title, Period period, int year, int credits1) {
+        this.id = id;
+        this.title = title;
+        this.period = period;
+        this.year = year;
+        this.credits = credits1;
+    }
+
+
     public String getId() {
         return id;
     }
@@ -38,6 +47,8 @@ public class Course {
         return period;
     }
 
+
+    
     public int getYear() {
         return year;
     }

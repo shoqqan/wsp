@@ -1,4 +1,4 @@
-package model.users;
+package shared.users;
 
 public class Researcher {
 }

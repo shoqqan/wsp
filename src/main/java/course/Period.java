@@ -1,6 +1,6 @@
 package course;
 
 public enum Period {
-    fall,
-    spring
+    FALL,
+    SPRING
 }

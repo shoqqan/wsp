@@ -1,8 +1,12 @@
 package auth;
+import user.User;
+
 
 public class AuthController {
     private final AuthService authService;
     private final AuthView authView;
+    private int authenticatedUserId;
+
 
     public AuthController(AuthService authService, AuthView authView) {
         this.authService = authService;
@@ -18,12 +22,16 @@ public class AuthController {
         String username = authView.getInput("Введите имя пользователя");
         String password = authView.getInput("Введите пароль");
         try {
-            authService.login(username, password);
-            authView.showSuccess("Вход выполнен успешно");
+            User user = authService.login(username, password);
+            authenticatedUserId = user.getId();
+            authView.showSuccess("Вход выполнен успешно.");
             return true;
         } catch (Exception e) {
             authView.showError(e.getMessage());
             return false;
         }
+    }
+    public int getAuthenticatedUserId() {
+        return authenticatedUserId;
     }
 }

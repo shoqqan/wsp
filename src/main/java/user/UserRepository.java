@@ -26,7 +26,7 @@ public class UserRepository {
                 User user = new User(
                         resultSet.getString("username"),
                         resultSet.getString("password"));
-                user.setId(resultSet.getString("id"));
+                user.setId(resultSet.getInt("id"));
                 user.setEmail(resultSet.getString("email"));
                 user.setRole(Role.valueOf(resultSet.getString("role")));
                 return Optional.of(user);
@@ -56,16 +56,16 @@ public class UserRepository {
     }
 
     public User findByUsername(String username) throws SQLException {
-        String sql = "SELECT * FROM users WHERE username = ?";
+        String sql = "SELECT * FROM users WHERE login = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                User user = new User(rs.getString("username"), rs.getString("password"));
-                user.setId(rs.getString("id"));
-                user.setEmail(rs.getString("email"));
-                user.setRole(Role.valueOf(rs.getString("role")));
-                return user;
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("login"),
+                        rs.getString("password")
+                );
             }
         }
         return null;
@@ -80,7 +80,7 @@ public class UserRepository {
                 User user = new User(
                         resultSet.getString("username"),
                         resultSet.getString("password"));
-                user.setId(resultSet.getString("id"));
+                user.setId(resultSet.getInt("id"));
                 user.setEmail(resultSet.getString("email"));
                 user.setRole(Role.valueOf(resultSet.getString("role")));
                 users.add(user);
@@ -100,7 +100,7 @@ public class UserRepository {
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getRole().name());
-            statement.setString(5, user.getId());
+            statement.setInt(5, user.getId());
             int rowsAffected = statement.executeUpdate();
 
             if (rowsAffected > 0) {
@@ -116,7 +116,7 @@ public class UserRepository {
     public void save(User user) throws SQLException {
         String sql = "INSERT INTO users (id, username, password, email, role) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, user.getId());
+            stmt.setInt(1, user.getId());
             stmt.setString(2, user.getUsername());
             stmt.setString(3, user.getPassword());
             stmt.setString(4, user.getEmail());
