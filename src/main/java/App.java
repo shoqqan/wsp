@@ -2,6 +2,8 @@ import auth.AuthController;
 import auth.AuthService;
 import auth.AuthView;
 import database.Database;
+import mainMenu.MainMenuController;
+import mainMenu.MainMenuView;
 import news.NewsController;
 import news.NewsRepository;
 import news.NewsService;
@@ -33,10 +35,12 @@ public class App {
             NewsController newsController = new NewsController(newsService, newsView);
             TranscriptController transcriptController = new TranscriptController(transcriptService, transcriptView);
 
+
             if (authController.handleMenu()) {
                 String studentId = authController.getAuthenticatedUserId(); // тут получаем айдишку юзера, чтобы в будущем дёргать из бдшки данные по айдишке, у нас ведь джвтшки нет
-//                newsController.showNews();
-//                transcriptController.showTranscript(studentId);
+                MainMenuView mainMenuView = new MainMenuView(userRepository, studentId);
+                MainMenuController mainMenuController = new MainMenuController(mainMenuView, newsController, transcriptController, studentId);
+                mainMenuController.showMainMenu();
 
             }
         } catch (Exception e) {

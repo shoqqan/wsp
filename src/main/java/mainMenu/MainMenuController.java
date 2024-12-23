@@ -19,13 +19,14 @@ public class MainMenuController {
     }
 
     public void showMainMenu() throws SQLException {
+        mainMenuView.displayMenu();
         int choice = mainMenuView.getUserChoice();
         switch (choice) {
             case (1):
                 newsController.showNews();
                 break;
             case (2):
-                transcriptController.showTranscript(Integer.parseInt(userId));
+                transcriptController.showTranscript(userId);
                 break;
             case (3):
                 System.out.println("Регистрация на дисциплины");

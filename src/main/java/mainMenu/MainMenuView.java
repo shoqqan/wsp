@@ -1,8 +1,10 @@
 package mainMenu;
 
-import auth.AuthController;
+import user.Role;
+import user.User;
 import user.UserRepository;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class MainMenuView {
@@ -10,9 +12,9 @@ public class MainMenuView {
     private final UserRepository userRepository;
     private final String userId;
 
-    public MainMenuView(UserRepository userRepository, AuthController authController) {
+    public MainMenuView(UserRepository userRepository, String userId) {
         this.userRepository = userRepository;
-        this.userId = String.valueOf(authController.getAuthenticatedUserId());
+        this.userId = userId;
     }
 
     public void displayMenu() {
@@ -21,7 +23,8 @@ public class MainMenuView {
         System.out.println("2. Просмотреть Транскрипт");
         System.out.println("3. Регистрация на дисциплины");
         System.out.println("4. Выход из аккаунта");
-        if (userRepository.findById(userId)) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent() && user.get().getRole() == Role.ADMIN) {
             System.out.println("5. Админ-панель");
         }
         System.out.println("=====================");

@@ -24,12 +24,18 @@ public class UserRepository {
 
             if (resultSet.next()) {
                 User user = new User(
-                        resultSet.getString("username"),
-                        resultSet.getString("password"));
-                user.setId(resultSet.getString("id"));
-                user.setEmail(resultSet.getString("email"));
-                user.setRole(Role.valueOf(resultSet.getString("role")));
+                        resultSet.getString("id"),
+                        resultSet.getString("login"),
+                        resultSet.getString("password"),
+                        resultSet.getString("iin"),
+                        resultSet.getString("first_name"),
+                        resultSet.getString("last_name"),
+                        resultSet.getString("email"),
+                        Role.valueOf(resultSet.getString("role")));
+
                 return Optional.of(user);
+            } else {
+                System.out.println("Пользователь не найден");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +70,12 @@ public class UserRepository {
                 return new User(
                         rs.getString("id"),
                         rs.getString("login"),
-                        rs.getString("password")
+                        rs.getString("password"),
+                        rs.getString("iin"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        Role.valueOf(rs.getString("role"))
                 );
             }
         }

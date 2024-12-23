@@ -3,17 +3,22 @@ package user;
 import java.util.Scanner;
 
 public class User {
+    private final Scanner scanner = new Scanner(System.in);
+    protected Role role;
     private String id;
     private String username;
     private String password;
     private String email;
-    protected Role role;
+    private String iin;
+    private String firstName;
+    private String lastName;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
         // this.role = UserRole.STUDENT;
     }
+
     public User(String id, String username, String password, String email, Role role) {
         this.id = id;
         this.username = username;
@@ -22,12 +27,23 @@ public class User {
         this.role = role;
     }
 
+    public User(String id, String username, String password, String iin, String firstName, String lastName, String email, Role role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.iin = iin;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.role = role;
+    }
+
+
     public User(String id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
-
 
     public String getId() {
         return id;
@@ -53,8 +69,6 @@ public class User {
         this.password = password;
     }
 
-    private final Scanner scanner = new Scanner(System.in);
-
     public void changePassword() {
         System.out.println("Введите ваш старый пароль: ");
         String oldPassword = scanner.nextLine();
@@ -68,19 +82,19 @@ public class User {
         }
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public String getEmail() {
         return this.email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Role getRole() {
         return this.role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
