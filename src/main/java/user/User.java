@@ -3,7 +3,7 @@ package user;
 import java.util.Scanner;
 
 public class User {
-    private int id;
+    private String id;
     private String username;
     private String password;
     private String email;
@@ -14,7 +14,7 @@ public class User {
         this.password = password;
         // this.role = UserRole.STUDENT;
     }
-    public User(int id, String username, String password, String email, Role role) {
+    public User(String id, String username, String password, String email, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -22,18 +22,18 @@ public class User {
         this.role = role;
     }
 
-    public User(int id, String username, String password) {
+    public User(String id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -30,7 +30,7 @@ public class App {
             TranscriptController transcriptController = new TranscriptController(transcriptService, transcriptView);
 
             if (authController.handleMenu()) {
-                int studentId = authController.getAuthenticatedUserId(); // тут получаем айдишку юзера, чтобы в будущем дёргать из бдшки данные по айдишке, у нас ведь джвтшки нет
+                String studentId = authController.getAuthenticatedUserId(); // тут получаем айдишку юзера, чтобы в будущем дёргать из бдшки данные по айдишке, у нас ведь джвтшки нет
 //                newsController.showNews();
                 transcriptController.showTranscript(studentId);
             }

@@ -26,7 +26,7 @@ public class UserRepository {
                 User user = new User(
                         resultSet.getString("username"),
                         resultSet.getString("password"));
-                user.setId(resultSet.getInt("id"));
+                user.setId(resultSet.getString("id"));
                 user.setEmail(resultSet.getString("email"));
                 user.setRole(Role.valueOf(resultSet.getString("role")));
                 return Optional.of(user);
@@ -62,7 +62,7 @@ public class UserRepository {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new User(
-                        rs.getInt("id"),
+                        rs.getString("id"),
                         rs.getString("login"),
                         rs.getString("password")
                 );
@@ -80,7 +80,7 @@ public class UserRepository {
                 User user = new User(
                         resultSet.getString("username"),
                         resultSet.getString("password"));
-                user.setId(resultSet.getInt("id"));
+                user.setId(resultSet.getString("id"));
                 user.setEmail(resultSet.getString("email"));
                 user.setRole(Role.valueOf(resultSet.getString("role")));
                 users.add(user);
@@ -100,7 +100,7 @@ public class UserRepository {
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getRole().name());
-            statement.setInt(5, user.getId());
+            statement.setString(5, user.getId());
             int rowsAffected = statement.executeUpdate();
 
             if (rowsAffected > 0) {
@@ -116,7 +116,7 @@ public class UserRepository {
     public void save(User user) throws SQLException {
         String sql = "INSERT INTO users (id, username, password, email, role) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, user.getId());
+            stmt.setString(1, user.getId());
             stmt.setString(2, user.getUsername());
             stmt.setString(3, user.getPassword());
             stmt.setString(4, user.getEmail());

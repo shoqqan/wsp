@@ -1,5 +1,5 @@
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id VARCHAR(25) PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
     role     VARCHAR(50)  NOT NULL CHECK (role IN ('ADMIN', 'STUDENT', 'TEACHER', 'RESEARCHER', 'LIBRARIAN', 'MANAGER',
 'RECTOR', 'EMPLOYEE')),
@@ -17,35 +17,35 @@ CREATE TABLE courses
     period    VARCHAR(6)   NOT NULL,
     year      INTEGER      NOT NULL,
     credits   INTEGER      NOT NULL,
-    teacher_id INTEGER REFERENCES users (id),
+    teacher_id VARCHAR(25) REFERENCES users (id),
     CHECK ( period IN ('spring', 'fall') )
 );
 
 CREATE TABLE students (
-    student_id SERIAL PRIMARY KEY,
+    student_id VARCHAR(25) PRIMARY KEY,
     year_study INTEGER NOT NULL,
     is_expelled BOOLEAN DEFAULT FALSE,
     school VARCHAR(6) NOT NULL,
-    user_id INTEGER UNIQUE REFERENCES users(id) ON DELETE CASCADE
+    user_id VARCHAR(25) UNIQUE REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE teachers (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    id VARCHAR(25) PRIMARY KEY,
+    user_id  VARCHAR(25) NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     department VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE course_student (
     id SERIAL PRIMARY KEY,
     course_id VARCHAR(8) NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
-    student_id INTEGER NOT NULL REFERENCES students(student_id) ON DELETE CASCADE,
+    student_id VARCHAR(25) NOT NULL REFERENCES students(student_id) ON DELETE CASCADE,
     enrolled_at TIMESTAMP DEFAULT NOW(),
     UNIQUE (course_id, student_id)
 );
 
 CREATE TABLE course_grades (
     id SERIAL PRIMARY KEY,
-    student_id INTEGER NOT NULL REFERENCES students(student_id) ON DELETE CASCADE,
+    student_id VARCHAR(25) NOT NULL REFERENCES students(student_id) ON DELETE CASCADE,
     course_id VARCHAR(8) NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
     grade NUMERIC(5, 2),
     date_assigned DATE DEFAULT CURRENT_DATE,
@@ -56,7 +56,7 @@ CREATE TABLE course_grades (
 CREATE TABLE course_sessions (
     id SERIAL PRIMARY KEY,
     course_id VARCHAR(8) NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
-    teacher_id INTEGER NOT NULL REFERENCES teachers(id) ON DELETE CASCADE,
+    teacher_id VARCHAR(25) NOT NULL REFERENCES teachers(id) ON DELETE CASCADE,
     session_type VARCHAR(20) NOT NULL CHECK (session_type IN ('L', 'P')),
     day_of_week VARCHAR(15) NOT NULL CHECK (day_of_week IN ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')),
     start_time TIME NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE semesters (
 
 CREATE TABLE assessments (
     id SERIAL PRIMARY KEY,
-    student_id INTEGER NOT NULL REFERENCES students(student_id) ON DELETE CASCADE,
+    student_id VARCHAR(25) NOT NULL REFERENCES students(student_id) ON DELETE CASCADE,
     course_id VARCHAR(8) NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
     semester_id INTEGER NOT NULL REFERENCES semesters(id) ON DELETE CASCADE,
     grade NUMERIC(5, 2) NOT NULL,
@@ -90,7 +90,7 @@ CREATE TABLE assessments (
 CREATE TABLE session_registrations (
     id SERIAL PRIMARY KEY,
     session_id INTEGER NOT NULL REFERENCES course_sessions(id) ON DELETE CASCADE,
-    student_id INTEGER NOT NULL REFERENCES students(student_id) ON DELETE CASCADE,
+    student_id VARCHAR(25) NOT NULL REFERENCES students(student_id) ON DELETE CASCADE,
     registered_at TIMESTAMP DEFAULT NOW(),
     UNIQUE (session_id, student_id)
 );
@@ -102,7 +102,7 @@ CREATE TABLE news (
     content TEXT NOT NULL,
     is_pinned BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT NOW(),
-    author_id INTEGER REFERENCES users(id)
+    author_id VARCHAR(25) REFERENCES users(id)
 );
 
 CREATE OR REPLACE FUNCTION check_session_capacity()

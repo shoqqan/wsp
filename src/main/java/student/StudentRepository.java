@@ -21,18 +21,18 @@ public class StudentRepository {
         this.connection = connection;
     }
 
-    public Student findById(int studentId) throws SQLException {
+    public Student findById(String studentId) throws SQLException {
         String sql = "SELECT s.student_id, s.year_study, s.is_expelled, s.school, " +
                 "u.first_name, u.last_name, u.login, u.password, u.email, u.role " + // Добавлено поле email
                 "FROM students s " +
                 "JOIN users u ON s.user_id = u.id " +
                 "WHERE s.user_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, studentId);
+            stmt.setString(1, studentId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new Student(
-                        rs.getInt("student_id"),
+                        rs.getString("student_id"),
                         rs.getString("login"),
                         rs.getString("password"),
                         rs.getString("email"),
@@ -48,7 +48,7 @@ public class StudentRepository {
 
 
 
-    public List<Transcript> findTranscriptsByStudentId(int studentId) throws SQLException {
+    public List<Transcript> findTranscriptsByStudentId(String studentId) throws SQLException {
         String sql = "SELECT a.id AS transcript_id, s.name AS semester_name, c.id AS course_id, c.title AS course_title, " +
                 "c.period, c.year, c.credits, a.grade, a.gpa " +
                 "FROM assessments a " +
@@ -58,7 +58,7 @@ public class StudentRepository {
 
         List<Transcript> transcripts = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, studentId);
+            stmt.setString(1, studentId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

@@ -5,7 +5,7 @@ import user.User;
 public class AuthController {
     private final AuthService authService;
     private final AuthView authView;
-    private int authenticatedUserId;
+    private String authenticatedUserId;
 
 
     public AuthController(AuthService authService, AuthView authView) {
@@ -31,7 +31,7 @@ public class AuthController {
             return false;
         }
     }
-    public int getAuthenticatedUserId() {
+    public String getAuthenticatedUserId() {
         return authenticatedUserId;
     }
 }

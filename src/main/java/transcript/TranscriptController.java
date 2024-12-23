@@ -12,7 +12,7 @@ public class TranscriptController {
         this.transcriptView = transcriptView;
     }
 
-    public void showTranscript(int studentId) throws SQLException {
+    public void showTranscript(String studentId) throws SQLException {
         transcriptView.displayTranscript(studentId);
     }
 }

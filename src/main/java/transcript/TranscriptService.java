@@ -14,11 +14,11 @@ public class TranscriptService {
         this.studentRepository = studentRepository;
     }
 
-    public Student getStudentById(int studentId) throws SQLException {
+    public Student getStudentById(String studentId) throws SQLException {
         return studentRepository.findById(studentId);
     }
 
-    public List<Transcript> getTranscriptsByStudentId(int studentId) throws SQLException {
+    public List<Transcript> getTranscriptsByStudentId(String studentId) throws SQLException {
         return studentRepository.findTranscriptsByStudentId(studentId);
     }
 }

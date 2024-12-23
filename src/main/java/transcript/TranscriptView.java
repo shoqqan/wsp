@@ -16,7 +16,7 @@ public class TranscriptView {
         this.transcriptService = transcriptService;
     }
 
-    public void displayTranscript(int studentId) throws SQLException {
+    public void displayTranscript(String studentId) throws SQLException {
         Student student = transcriptService.getStudentById(studentId);
         if (student == null) {
             System.out.println("Студент с ID " + studentId + " не найден.");
