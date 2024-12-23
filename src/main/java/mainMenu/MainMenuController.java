@@ -1,7 +1,9 @@
 package mainMenu;
 
+import course.CourseController;
 import news.NewsController;
 import transcript.TranscriptController;
+import user.admin.AdminView;
 
 import java.sql.SQLException;
 
@@ -9,12 +11,16 @@ public class MainMenuController {
     private final MainMenuView mainMenuView;
     private final NewsController newsController;
     private final TranscriptController transcriptController;
+    private final CourseController courseController;
+    private final AdminView adminView;
     private final String userId;
 
-    public MainMenuController(MainMenuView mainMenuView, NewsController newsController, TranscriptController transcriptController, String userId) {
+    public MainMenuController(MainMenuView mainMenuView, NewsController newsController, TranscriptController transcriptController, CourseController courseController, AdminView adminView, String userId) {
         this.mainMenuView = mainMenuView;
         this.newsController = newsController;
         this.transcriptController = transcriptController;
+        this.courseController = courseController;
+        this.adminView = adminView;
         this.userId = userId;
     }
 
@@ -29,13 +35,13 @@ public class MainMenuController {
                 transcriptController.showTranscript(userId);
                 break;
             case (3):
-                System.out.println("Регистрация на дисциплины");
+                courseController.handleStudentRegistration(userId);
                 break;
             case (4):
                 System.out.println("Выход из аккаунта");
                 break;
             case (5):
-                System.out.println("Админ-панель");
+                adminView.showMenu();
                 break;
         }
     }
