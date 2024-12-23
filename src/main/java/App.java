@@ -1,20 +1,18 @@
-import auth.AuthController;
-import auth.AuthService;
-import auth.AuthView;
-import database.Database;
-import mainMenu.MainMenuController;
-import mainMenu.MainMenuView;
-import news.NewsController;
-import news.NewsRepository;
-import news.NewsService;
-import news.NewsView;
+import auth.*;
+import database.*;
+import news.*;
+import student.StudentRepository;
+import teacher.TeacherRepository;
 import transcript.TranscriptController;
 import transcript.TranscriptService;
 import transcript.TranscriptView;
 import user.UserRepository;
 import user.student.StudentRepository;
-
+import mainMenu.MainMenuController;
+import mainMenu.MainMenuView;
 import java.sql.Connection;
+
+import course.*;
 
 public class App {
     public static void main(String[] args) {
@@ -22,18 +20,23 @@ public class App {
             UserRepository userRepository = new UserRepository(connection);
             NewsRepository newsRepository = new NewsRepository(connection);
             StudentRepository studentRepository = new StudentRepository(connection);
+            CourseRepository courseRepository = new CourseRepository(connection);
+            TeacherRepository teacherRepo = new TeacherRepository(connection);
 
             AuthService authService = new AuthService(userRepository);
             NewsService newsService = new NewsService(newsRepository);
             TranscriptService transcriptService = new TranscriptService(studentRepository);
+            CourseService courseService = new CourseService(courseRepository, teacherRepo);
 
             AuthView authView = new AuthView();
             NewsView newsView = new NewsView();
             TranscriptView transcriptView = new TranscriptView(transcriptService);
+            CourseView courseView = new CourseView();
 
             AuthController authController = new AuthController(authService, authView);
             NewsController newsController = new NewsController(newsService, newsView);
             TranscriptController transcriptController = new TranscriptController(transcriptService, transcriptView);
+            CourseController courseController = new CourseController(courseView, courseService);
 
 
             if (authController.handleMenu()) {
@@ -42,6 +45,15 @@ public class App {
                 MainMenuController mainMenuController = new MainMenuController(mainMenuView, newsController, transcriptController, studentId);
                 mainMenuController.showMainMenu();
 
+
+                // Показываем курсы
+                courseController.displayCourses();
+
+                // Регистрация студента на курс
+                courseController.handleStudentRegistration(studentId);
+
+                // Просмотр транскрипта
+                transcriptController.showTranscript(studentId);
             }
         } catch (Exception e) {
             e.printStackTrace();

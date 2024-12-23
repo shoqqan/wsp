@@ -6,7 +6,7 @@ public class Course {
     private final Period period;
     private final int year;
     private final int credits;
-    private Integer teacherId;
+    private String teacherId;
 
     public Course(String id, String title, Period period, int year, int credits) {
         this.id = id;
@@ -17,7 +17,7 @@ public class Course {
         this.teacherId = null;
     }
 
-    public Course(String id, String title, Period period, int year, int credits, int teacherId) {
+    public Course(String id, String title, Period period, int year, int credits, String teacherId) {
         this.id = id;
         this.title = title;
         this.period = period;
@@ -57,8 +57,14 @@ public class Course {
         return credits;
     }
 
-    public Integer getTeacherId() {
+    public String getTeacherId() {
         return teacherId;
     }
-
+    @Override
+    public String toString() {
+        return String.format(
+                "ID: %s | Название: %s | Период: %s | Год: %d | Кредиты: %d",
+                id, title, period.name(), year, credits
+        );
+    }
 }

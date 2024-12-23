@@ -21,11 +21,11 @@ public class Student extends User {
     }
 
     public String getFirstName() {
-        return getUsername(); // Пример: используем имя пользователя как firstName
+        return getUsername();
     }
 
     public String getLastName() {
-        return ""; // Здесь можно добавить логику для фамилии, если она отсутствует
+        return "";
     }
 
     public int getYearStudy() {

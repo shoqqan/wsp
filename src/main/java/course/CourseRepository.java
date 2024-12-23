@@ -1,10 +1,10 @@
 package course;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +24,11 @@ public class CourseRepository {
                 courses.add(new Course(
                         rs.getString("id"),
                         rs.getString("title"),
-                        Period.valueOf(rs.getString("period")),
+                        Period.valueOf(rs.getString("period").toUpperCase()),
+
                         rs.getInt("year"),
                         rs.getInt("credits"),
-                        rs.getInt("teacher_id")
+                        rs.getString("teacher_id")
                 ));
             }
             return courses;
@@ -45,8 +46,60 @@ public class CourseRepository {
             stmt.setString(3, course.getPeriod().toString());
             stmt.setInt(4, course.getYear());
             stmt.setInt(5, course.getCredits());
-            stmt.setInt(6, course.getTeacherId());
+            stmt.setString(6, course.getTeacherId());
             stmt.executeUpdate();
         }
+    }
+
+    public boolean registerStudent(String courseId, String studentId) throws SQLException {
+        int enrolledCount = getEnrolledCount(courseId);
+        int courseCapacity = getCourseCapacity(courseId);
+        if (enrolledCount >= courseCapacity) {
+            System.out.println("Курс переполнен. Регистрация невозможна.");
+            return false;
+        }
+        String checkSql = "SELECT 1 FROM course_student WHERE course_id = ? AND student_id = ?";
+        try (PreparedStatement checkStmt = connection.prepareStatement(checkSql)) {
+            checkStmt.setString(1, courseId);
+            checkStmt.setString(2, studentId);
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next()) {
+                System.out.println("Студент уже зарегистрирован на курс.");
+                return false;
+            }
+        }
+
+        String insertSql = "INSERT INTO course_student (course_id, student_id, enrolled_at) VALUES (?, ?, ?)";
+        try (PreparedStatement insertStmt = connection.prepareStatement(insertSql)) {
+            insertStmt.setString(1, courseId);
+            insertStmt.setString(2, studentId);
+            insertStmt.setObject(3, LocalDateTime.now());
+            insertStmt.executeUpdate();
+            return true;
+        }
+    }
+
+    public int getEnrolledCount(String courseId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM course_student WHERE course_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, courseId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+
+    public int getCourseCapacity(String courseId) throws SQLException {
+        String sql = "SELECT capacity FROM course_sessions WHERE course_id = ? LIMIT 1";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, courseId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("capacity");
+            }
+        }
+        return 0;
     }
 }
