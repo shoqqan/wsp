@@ -1,4 +1,4 @@
-package admin;
+package user.admin;
 
 import user.User;
 

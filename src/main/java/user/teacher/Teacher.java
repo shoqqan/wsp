@@ -1,5 +1,6 @@
-package shared.users;
+package user.teacher;
 
+import shared.users.Employee;
 import user.Role;
 
 public class Teacher extends Employee {

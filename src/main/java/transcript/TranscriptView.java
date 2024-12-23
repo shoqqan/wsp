@@ -1,9 +1,9 @@
 package transcript;
 
 import assessment.Assessment;
-import semester.Semester;
 import course.Course;
-import student.Student;
+import semester.Semester;
+import user.student.Student;
 
 import java.sql.SQLException;
 import java.util.List;

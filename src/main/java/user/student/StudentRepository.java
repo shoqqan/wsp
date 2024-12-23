@@ -1,4 +1,4 @@
-package student;
+package user.student;
 
 import course.Period;
 import assessment.Assessment;

@@ -1,7 +1,7 @@
 package transcript;
 
-import student.Student;
-import student.StudentRepository;
+import user.student.Student;
+import user.student.StudentRepository;
 
 import java.sql.SQLException;
 import java.util.List;

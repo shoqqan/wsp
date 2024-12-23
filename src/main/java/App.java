@@ -1,12 +1,16 @@
-import auth.*;
-import database.*;
-import news.*;
-import student.StudentRepository;
+import auth.AuthController;
+import auth.AuthService;
+import auth.AuthView;
+import database.Database;
+import news.NewsController;
+import news.NewsRepository;
+import news.NewsService;
+import news.NewsView;
 import transcript.TranscriptController;
 import transcript.TranscriptService;
 import transcript.TranscriptView;
-import user.*;
-
+import user.UserRepository;
+import user.student.StudentRepository;
 
 import java.sql.Connection;
 
@@ -32,7 +36,8 @@ public class App {
             if (authController.handleMenu()) {
                 String studentId = authController.getAuthenticatedUserId(); // тут получаем айдишку юзера, чтобы в будущем дёргать из бдшки данные по айдишке, у нас ведь джвтшки нет
 //                newsController.showNews();
-                transcriptController.showTranscript(studentId);
+//                transcriptController.showTranscript(studentId);
+
             }
         } catch (Exception e) {
             e.printStackTrace();

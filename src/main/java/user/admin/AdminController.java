@@ -1,4 +1,4 @@
-package admin;
+package user.admin;
 
 
 import auth.AuthView;

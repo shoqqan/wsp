@@ -1,8 +1,7 @@
-package student;
-
-import user.User;
+package user.student;
 
 import user.Role;
+import user.User;
 
 public class Student extends User {
     private String studentID;
