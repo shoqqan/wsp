@@ -6,11 +6,11 @@ VALUES ('18ADM030317', 'admin123', 'ADMIN', '123456789012', 'admin', 'Admin', 'U
        ('23B030317', 'stud123', 'STUDENT', '123456789014', 'student', 'Alice', 'Johnson', 'student@example.com');
 
 INSERT INTO courses (id, title, period, year, credits)
-VALUES ('CS101', 'Introduction to Computer Science', 'fall', 2023, 3),
-       ('MATH201', 'Calculus I', 'spring', 2023, 4),
-       ('PHYS101', 'Physics I', 'fall', 2023, 4),
-       ('ENG101', 'English Composition', 'spring', 2023, 3),
-       ('HIST101', 'World History', 'fall', 2023, 3);
+VALUES ('CS101', 'Introduction to Computer Science', 'fall', 2023, 3,(SELECT id FROM users where login = 'teacher2')),
+       ('MATH201', 'Calculus I', 'spring', 2023, 4,(SELECT id FROM users where login = 'teacher2')),
+       ('PHYS101', 'Physics I', 'fall', 2023, 4,(SELECT id FROM users where login = 'teacher')),
+       ('ENG101', 'English Composition', 'spring', 2023, 3,(SELECT id FROM users where login = 'teacher')),
+       ('HIST101', 'World History', 'fall', 2023, 3,(SELECT id FROM users where login = 'teacher2'));
 -- INSERT INTO courses (title, credits) VALUES
 -- ('Introduction to Programming 1', 3),
 -- ('Algorithms and Data Structures', 4),

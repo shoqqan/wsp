@@ -1,7 +1,7 @@
 import auth.*;
 import database.*;
 import news.*;
-import student.StudentRepository;
+import user.student.StudentRepository;
 import teacher.TeacherRepository;
 import transcript.TranscriptController;
 import transcript.TranscriptService;
@@ -46,14 +46,11 @@ public class App {
                 mainMenuController.showMainMenu();
 
 
-                // Показываем курсы
-                courseController.displayCourses();
-
-                // Регистрация студента на курс
-                courseController.handleStudentRegistration(studentId);
-
-                // Просмотр транскрипта
-                transcriptController.showTranscript(studentId);
+//                courseController.displayCourses();
+//
+//                courseController.handleStudentRegistration(studentId);
+//
+//                transcriptController.showTranscript(studentId);
             }
         } catch (Exception e) {
             e.printStackTrace();
